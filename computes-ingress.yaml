@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: computes
+  annotations:
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - host: compute.api
+    http:
+      paths:
+      - path: /math
+        backend:
+          serviceName: math
+          servicePort: http
+      - path: /plus
+        backend:
+          serviceName: plus
+          servicePort: http
+      - path: /minus
+        backend:
+          serviceName: minus
+          servicePort: http
+      - path: /multiply
+        backend:
+          serviceName: multiply
+          servicePort: http
+      - path: /divide
+        backend:
+          serviceName: divide
+          servicePort: http
