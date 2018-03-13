@@ -1,8 +1,11 @@
 const express = require("express")
 const request = require("request-promise")
 const bodyParser = require('body-parser')
+const path = require('path')
+const cors = require('cors')
 
 const app = express()
+app.use(cors())
 app.use(bodyParser.json());
 
 app.post("/math", async (req, res, next) => {
@@ -35,6 +38,7 @@ app.post("/math", async (req, res, next) => {
 const computePlus = async factors => {
   try {
     const result = await request(`${process.env.COMPUTE_PLUS_URL}/plus`, {
+      followAllRedirects: true,
       method: 'POST',
       json: true,
       body: {"factorOne":factors.factorOne,"factorTwo":factors.factorTwo}
@@ -42,13 +46,14 @@ const computePlus = async factors => {
     return result
   } catch (e) {
     console.log(`failed to compute plus equation ${e}`)
-    return result
+    return e
   }
 }
 
 const computeMinus = async factors => {
   try {
     const result = await request(`${process.env.COMPUTE_MINUS_URL}/minus`, {
+      followAllRedirects: true,
       method: 'POST',
       json: true,
       body: {"factorOne":factors.factorOne,"factorTwo":factors.factorTwo}
@@ -56,13 +61,14 @@ const computeMinus = async factors => {
     return result
   } catch (e) {
     console.log(`failed to compute minus equation ${e}`)
-    return result
+    return e
   }
 }
 
 const computeMultiply = async factors => {
   try {
     const result = await request(`${process.env.COMPUTE_MULTIPLY_URL}/multiply`, {
+      followAllRedirects: true,
       method: 'POST',
       json: true,
       body: {"factorOne":factors.factorOne,"factorTwo":factors.factorTwo}
@@ -70,13 +76,14 @@ const computeMultiply = async factors => {
     return result
   } catch (e) {
     console.log(`failed to compute multiply equation ${e}`)
-    return result
+    return e
   }
 }
 
 const computeDivide = async factors => {
   try {
     const result = await request(`${process.env.COMPUTE_DIVIDE_URL}/divide`, {
+      followAllRedirects: true,
       method: 'POST',
       json: true,
       body: {"factorOne":factors.factorOne,"factorTwo":factors.factorTwo}
@@ -84,9 +91,14 @@ const computeDivide = async factors => {
     return result
   } catch (e) {
     console.log(`failed to compute divide equation ${e}`)
-    return result
+    return e
   }
 }
+
+app.use('/', express.static('app'));
+app.get('*', function(req,res){
+  res.sendFile(path.join(__dirname+'/index.html'));
+});
 
 const port = process.env.PORT || 8080
 

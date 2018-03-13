@@ -2,6 +2,18 @@
 USER_REPO=$1
 VERSION=$2
 
+if [ -z "$USER_REPO" ]; then
+	echo "#-----------------------------------------------#"
+	echo "  Please provide your Docker Hub ID as a parameter."
+	echo "  example) ./docker-build.sh <USERID> latest"
+	echo "#-----------------------------------------------#"
+	exit 1
+fi
+
+if [ -z "$VERSION" ]; then
+	VERSION=latest
+fi
+
 echo 'Docker Hub ID:'$USER_REPO
 echo 'Image Version:'$VERSION
 

@@ -6,11 +6,14 @@ metadata:
 spec:
   ports:
   - name: http
-    targetPort: 80
+    targetPort: 8080
     port: 80
+    nodePort: 30010
   selector:
     app: compute-api
-    task: math
+    api: math
+  type: NodePort
+  externalTrafficPolicy: Local
 ---
 apiVersion: v1
 kind: Service
@@ -19,11 +22,14 @@ metadata:
 spec:
   ports:
   - name: http
-    targetPort: 80
+    targetPort: 8080
     port: 80
+    nodePort: 30011
   selector:
     app: compute-api
-    task: plus
+    api: plus
+  type: NodePort
+  externalTrafficPolicy: Local
 ---
 apiVersion: v1
 kind: Service
@@ -32,11 +38,14 @@ metadata:
 spec:
   ports:
   - name: http
-    targetPort: 80
+    targetPort: 8080
     port: 80
+    nodePort: 30012
   selector:
     app: compute-api
-    task: minus
+    api: minus
+  type: NodePort
+  externalTrafficPolicy: Local
 ---
 apiVersion: v1
 kind: Service
@@ -45,11 +54,14 @@ metadata:
 spec:
   ports:
   - name: http
-    targetPort: 80
+    targetPort: 8080
     port: 80
+    nodePort: 30013
   selector:
     app: compute-api
-    task: multiply
+    api: multiply
+  type: NodePort
+  externalTrafficPolicy: Local
 ---
 apiVersion: v1
 kind: Service
@@ -58,8 +70,11 @@ metadata:
 spec:
   ports:
   - name: http
-    targetPort: 80
+    targetPort: 8080
     port: 80
+    nodePort: 30014
   selector:
     app: compute-api
-    task: divide
+    api: divide
+  type: NodePort
+  externalTrafficPolicy: Local

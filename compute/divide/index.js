@@ -1,8 +1,10 @@
 const express = require("express")
 const request = require("request-promise")
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const app = express()
+app.use(cors())
 app.use(bodyParser.json());
 
 app.post("/divide", async (req, res, next) => {

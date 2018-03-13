@@ -7,21 +7,20 @@ metadata:
     app: compute-api
     api: math
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: compute-api
-      task: math
+      api: math
   template:
     metadata:
       labels:
         app: compute-api
-        task: math
-        version: v0.0.1
+        api: math
     spec:
       containers:
       - name: math
-        image: an5asis/math:v1
+        image: an5asis/math:latest
         resources:
           requests:
             cpu: 100m
@@ -30,16 +29,16 @@ spec:
             cpu: 100m
             memory: 50Mi
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         env:
         - name: COMPUTE_PLUS_URL
-          value: "plus.api"
+          value: "http://192.168.99.100:30011"
         - name: COMPUTE_MINUS_URL
-          value: "minus.api"
+          value: "http://192.168.99.100:30012"
         - name: COMPUTE_MULTIPLY_URL
-          value: "multiply.api"
+          value: "http://192.168.99.100:30013"
         - name: COMPUTE_DIVIDE_URL
-          value: "divide.api"
+          value: "http://192.168.99.100:30014"
 ---
 kind: Deployment
 apiVersion: extensions/v1beta1
@@ -49,21 +48,20 @@ metadata:
     app: compute-api
     api: plus
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: compute-api
-      task: plus
+      api: plus
   template:
     metadata:
       labels:
         app: compute-api
-        task: plus
-        version: v0.0.1
+        api: plus
     spec:
       containers:
       - name: plus
-        image: an5asis/plus:v1
+        image: an5asis/plus:latest
         resources:
           requests:
             cpu: 100m
@@ -72,16 +70,7 @@ spec:
             cpu: 100m
             memory: 50Mi
         ports:
-        - containerPort: 80
-        env:
-        - name: COMPUTE_PLUS_URL
-          value: "plus.api"
-        - name: COMPUTE_MINUS_URL
-          value: "minus.api"
-        - name: COMPUTE_MULTIPLY_URL
-          value: "multiply.api"
-        - name: COMPUTE_DIVIDE_URL
-          value: "divide.api"
+        - containerPort: 8080
 ---
 kind: Deployment
 apiVersion: extensions/v1beta1
@@ -91,21 +80,20 @@ metadata:
     app: compute-api
     api: minus
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: compute-api
-      task: minus
+      api: minus
   template:
     metadata:
       labels:
         app: compute-api
-        task: minus
-        version: v0.0.1
+        api: minus
     spec:
       containers:
       - name: compute-minus
-        image: an5asis/minus:v1
+        image: an5asis/minus:latest
         resources:
           requests:
             cpu: 100m
@@ -114,16 +102,7 @@ spec:
             cpu: 100m
             memory: 50Mi
         ports:
-        - containerPort: 80
-        env:
-        - name: COMPUTE_PLUS_URL
-          value: "plus.api"
-        - name: COMPUTE_MINUS_URL
-          value: "minus.api"
-        - name: COMPUTE_MULTIPLY_URL
-          value: "multiply.api"
-        - name: COMPUTE_DIVIDE_URL
-          value: "divide.api"
+        - containerPort: 8080
 ---
 kind: Deployment
 apiVersion: extensions/v1beta1
@@ -133,21 +112,20 @@ metadata:
     app: compute-api
     api: multiply
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: compute-api
-      task: multiply
+      api: multiply
   template:
     metadata:
       labels:
         app: compute-api
-        task: multiply
-        version: v0.0.1
+        api: multiply
     spec:
       containers:
       - name: multiply
-        image: an5asis/multiply:v1
+        image: an5asis/multiply:latest
         resources:
           requests:
             cpu: 100m
@@ -156,16 +134,7 @@ spec:
             cpu: 100m
             memory: 50Mi
         ports:
-        - containerPort: 80
-        env:
-        - name: COMPUTE_PLUS_URL
-          value: "plus.api"
-        - name: COMPUTE_MINUS_URL
-          value: "minus.api"
-        - name: COMPUTE_MULTIPLY_URL
-          value: "multiply.api"
-        - name: COMPUTE_DIVIDE_URL
-          value: "divide.api"
+        - containerPort: 8080
 ---
 kind: Deployment
 apiVersion: extensions/v1beta1
@@ -175,21 +144,20 @@ metadata:
     app: compute-api
     api: divide
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: compute-api
-      task: divide
+      api: divide
   template:
     metadata:
       labels:
         app: compute-api
-        task: divide
-        version: v0.0.1
+        api: divide
     spec:
       containers:
       - name: divide
-        image: an5asis/divide:v1
+        image: an5asis/divide:latest
         resources:
           requests:
             cpu: 100m
@@ -198,13 +166,4 @@ spec:
             cpu: 100m
             memory: 50Mi
         ports:
-        - containerPort: 80
-        env:
-        - name: COMPUTE_PLUS_URL
-          value: "plus.api"
-        - name: COMPUTE_MINUS_URL
-          value: "minus.api"
-        - name: COMPUTE_MULTIPLY_URL
-          value: "multiply.api"
-        - name: COMPUTE_DIVIDE_URL
-          value: "divide.api"
+        - containerPort: 8080

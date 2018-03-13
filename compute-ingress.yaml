@@ -1,43 +1,29 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: compute-api
-  annotations:
-    kubernetes.io/ingress.class: traefik
+  name: computes
 spec:
   rules:
-  - host: math.api
+  - host: compute.api
     http:
       paths:
-      - path: /
+      - path: /math
         backend:
           serviceName: math
-          servicePort: http
-  - host: plus.api
-    http:
-      paths:
-      - path: /
+          servicePort: 80
+      - path: /plus
         backend:
           serviceName: plus
-          servicePort: http
-  - host: minus.api
-    http:
-      paths:
-      - path: /
+          servicePort: 80
+      - path: /minus
         backend:
           serviceName: minus
-          servicePort: http
-  - host: multiply.api
-    http:
-      paths:
-      - path: /
+          servicePort: 80
+      - path: /multiply
         backend:
           serviceName: multiply
-          servicePort: http
-  - host: divide.api
-    http:
-      paths:
-      - path: /
+          servicePort: 80
+      - path: /divide
         backend:
           serviceName: divide
-          servicePort: http
+          servicePort: 80
